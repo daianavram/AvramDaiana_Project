@@ -1,0 +1,42 @@
+﻿@model IEnumerable<AvramDaiana_FacultyProject.Models.Subject>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<img src=https://cdn-icons.flaticon.com/png/512/3037/premium/3037971.png?token=exp=1641689266~hmac=f39ca5ce2f95b61246bb69eadfb7cd6b width="50" height="50" />
+<h2>Subjects</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Credits)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Credits)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.SubjectID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.SubjectID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.SubjectID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

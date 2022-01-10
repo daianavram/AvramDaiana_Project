@@ -1,0 +1,121 @@
+﻿@model AvramDaiana_FacultyProject.Models.FacultyViewModels.ProfessorIndexData
+@{
+    ViewData["Title"] = "Professors";
+}
+
+<img src="https://cdn-icons-png.flaticon.com/512/90/90477.png" width="50" height="50" />
+<h2>Professors</h2>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Professor Name</th>
+            <th>Email</th>
+            <th>Courses</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Professors)
+        {
+            string selectedRow = "";
+            if (item.ID == (int?)ViewData["ProfessorID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProfessorName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+
+                <td>
+                    @{
+                        foreach (var subject in item.Courses)
+                        {
+                            @subject.Subject.SubjectID @: @subject.Subject.Name <br />
+                        }
+                    }
+                </td>
+                <td>
+                    <a asp-action="Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.Subjects != null)
+{
+    <h3>Subjects taught by a professor</h3>
+    <table class="table">
+        <tr>
+            <th></th>
+            <th>Subject ID</th>
+            <th>Subject name</th>
+            <th>Credits</th>
+        </tr>
+
+        @foreach (var item in Model.Subjects)
+        {
+            string selectedRow = "";
+            if (item.SubjectID == (int?)ViewData["SubjectID"])
+            {
+                selectedRow = "success";
+            }
+            <tr class="@selectedRow">
+                <td>
+                    @Html.ActionLink("Select", "Index", new { subjectID = item.SubjectID })
+                </td>
+                <td>
+                    @item.SubjectID
+                </td>
+                <td>
+                    @item.Name
+                </td>
+                <td>
+                    @item.Credits
+                </td>
+            </tr>
+        }
+    </table>
+}
+
+@if (Model.Exams != null)
+{
+    <h3>
+        Students that took a selected exam
+    </h3>
+    <table class="table">
+        <tr>
+            <th>Student Name</th>
+            <th>Exam</th>
+            <th>Date</th>
+            <th>Grade</th>
+        </tr>
+        @foreach (var item in Model.Exams)
+        {
+            <tr>
+                <td>
+                    @item.Student.Name
+                </td>
+                <td>
+                    @item.Subject.Name
+                </td>
+                <td>
+                    @item.ExamDate
+                </td>
+                <td>
+                    @item.Grade
+                </td>
+            </tr>
+        }
+    </table>
+}

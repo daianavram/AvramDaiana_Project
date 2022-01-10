@@ -1,0 +1,26 @@
+﻿@model IEnumerable<AvramDaiana_FacultyProject.Models.FacultyViewModels.OrderGroup>
+@{
+    ViewData["Title"] = "Exam Dates Statistics";
+}
+<h2>Exam Dates Statistics</h2>
+<table>
+    <tr>
+        <th>
+            Exam Name
+        </th>
+        <th>
+            Number of students
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.ExamName
+            </td>
+            <td>
+                @item.StudentsCount
+            </td>
+        </tr>
+    }
+</table>
